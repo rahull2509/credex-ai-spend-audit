@@ -1,4 +1,5 @@
 import { customAlphabet } from "nanoid";
+import { getSiteUrl } from "@/lib/constants";
 
 const createId = customAlphabet(
   "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz",
@@ -10,6 +11,6 @@ export function createShareId() {
 }
 
 export function createShareUrl(shareId: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  const baseUrl = getSiteUrl();
   return `${baseUrl.replace(/\/$/, "")}/reports/${shareId}`;
 }

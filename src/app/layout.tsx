@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
+import { getSiteUrl } from "@/lib/constants";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,8 +14,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+function getMetadataBase(): URL {
+  const siteUrl = getSiteUrl();
+  try {
+    return new URL(siteUrl);
+  } catch {
+    return new URL("http://localhost:3000");
+  }
+}
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
+  metadataBase: getMetadataBase(),
   title: {
     default: "Credex AI Spend Audit",
     template: "%s | Credex AI Spend Audit",
